@@ -1,5 +1,4 @@
 //Selectors
-const currentDay = document.querySelector("#currentDay");
 
 //Event Listeners
 
