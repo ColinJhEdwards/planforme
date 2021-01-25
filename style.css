@@ -67,9 +67,10 @@ textarea {
   color: white;
 }
 
-.saveBtn i:hover {
-  font-size: 20px;
-  transition: all 0.3s ease-in-out;
+.saveBtn:hover {
+  background-color: #40d5f7;
+  color: black;
+  transition: all 0.5s ease-in-out;
 }
 
 .timeblock {
@@ -79,6 +80,6 @@ textarea {
 }
 
 .timeblock h2 {
-  border: solid black 1px;
+  border: solid black 2spx;
   padding: 2.5rem;
 }
