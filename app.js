@@ -1,5 +1,5 @@
 //Selectors
-const saveBtn = document.querySelector(".saveBtn");
+const saveBtn = document.querySelectorAll(".saveBtn");
 const currentDay = moment().format("MMMM Do YYYY, h:mm:ss a");
 const textArea = document.querySelectorAll("#todo");
 let currentHour = new Date().getHours();
@@ -7,17 +7,13 @@ console.log(currentDay);
 console.log(textArea);
 
 //Event Listeners
-saveBtn.addEventListener("click", function () {
-  console.log("You did it");
+saveBtn.forEach((button, index) => {
+  button.addEventListener("click", () => {
+    updateText(index);
+  });
 });
 
 //Functions
-
-var updateDate = function () {
-  document.getElementById("currentDay").innerHTML = currentDay;
-};
-setInterval(updateDate, 1000);
-updateDate();
 
 function timeblockColor() {
   const timeBlock = document.querySelectorAll(".timeblock");
@@ -31,8 +27,24 @@ function timeblockColor() {
     }
   }
 }
-setInterval(timeblockColor, 1000);
-timeblockColor();
+
+function updateText(index) {
+  console.log(saveBtn[index]);
+  const textAreaInput = document.querySelectorAll("#todo").value;
+  for (let i = 0; i <= 12; i++) {
+    if (saveBtn[index].parentElement.dataset.time == i) {
+      textArea[index].value = textArea[index].value;
+    }
+  }
+}
+
+var updateDate = function () {
+  document.getElementById("currentDay").innerHTML = moment().format(
+    "MMMM Do YYYY, h:mm:ss a"
+  );
+};
+setInterval(updateDate, 1000);
+updateDate();
 
 // To Do
 
