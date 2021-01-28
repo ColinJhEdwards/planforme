@@ -1,50 +1,54 @@
-//Selectors
-const saveBtn = document.querySelectorAll(".saveBtn");
-const currentDay = moment().format("MMMM Do YYYY, h:mm:ss a");
-const textArea = document.querySelectorAll("#todo");
-let currentHour = new Date().getHours();
-console.log(currentDay);
-console.log(textArea);
+$(document).ready(function () {
+  //Selectors
+  const saveBtn = document.querySelectorAll(".saveBtn");
+  const currentDay = moment().format("MMMM Do YYYY, h:mm:ss a");
+  const textArea = document.querySelectorAll("#todo");
 
-//Event Listeners
-saveBtn.forEach((button, index) => {
-  button.addEventListener("click", () => {
-    updateText(index);
+  console.log(currentDay);
+  console.log(textArea);
+
+  $(".saveBtn").on("click", function () {
+    const time = $(this).attr("id");
+    const value = $(this).siblings("textarea").val();
+    console.log(time, value);
+    localStorage.setItem(time, value);
   });
-});
+  //Functions
 
-//Functions
+  function getLocalStorage() {
+    for (let i = 9; i <= 20; i++) {
+      $(`#${i}`).siblings("textarea").val(localStorage.getItem(i));
+    }
+  }
 
-function timeblockColor() {
-  const timeBlock = document.querySelectorAll(".timeblock");
-
-  for (let i = 0; i < timeBlock.length; i++) {
-    const timeValue = timeBlock[i].dataset.time;
-    if (timeValue === "8") {
-      if (currentDay.includes("8:")) {
-        textArea[11].classList.add("present");
+  function timeblockColor() {
+    const currentHour = moment().hours();
+    console.log(`CurrentHour: ${currentHour}`);
+    $(".timeblock").each(function () {
+      const rowHour = parseInt($(this).attr("data-time"));
+      if (rowHour < currentHour) {
+        $(this).addClass("past");
+      } else if (rowHour === currentHour) {
+        $(this).removeClass("past");
+        $(this).addClass("present");
+      } else {
+        $(this).removeClass("present");
+        $(this).removeClass("past");
+        $(this).addClass("future");
       }
-    }
+    });
   }
-}
 
-function updateText(index) {
-  console.log(saveBtn[index]);
-  const textAreaInput = document.querySelectorAll("#todo").value;
-  for (let i = 0; i <= 12; i++) {
-    if (saveBtn[index].parentElement.dataset.time == i) {
-      textArea[index].value = textArea[index].value;
-    }
-  }
-}
-
-var updateDate = function () {
-  document.getElementById("currentDay").innerHTML = moment().format(
-    "MMMM Do YYYY, h:mm:ss a"
-  );
-};
-setInterval(updateDate, 1000);
-updateDate();
+  var updateDate = function () {
+    document.getElementById("currentDay").innerHTML = moment().format(
+      "MMMM Do YYYY, h:mm:ss a"
+    );
+  };
+  setInterval(updateDate, 1000);
+  updateDate();
+  getLocalStorage();
+  timeblockColor();
+});
 
 // To Do
 
