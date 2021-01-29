@@ -82,4 +82,5 @@ textarea {
 .timeblock h2 {
   border: solid black 2spx;
   padding: 2.5rem;
+  color: black;
 }

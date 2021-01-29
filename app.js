@@ -47,6 +47,7 @@ $(document).ready(function () {
   setInterval(updateDate, 1000);
   updateDate();
   getLocalStorage();
+  setInterval(timeblockColor, 1000);
   timeblockColor();
 });
 
